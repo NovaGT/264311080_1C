@@ -13,13 +13,8 @@ CREATE TABLE mahasiswa (
 --Tabel ruang(induk)
 CREATE TABLE ruang (
   no_ruang     VARCHAR(10) NOT NULL,
-  jenis_ruang  VARCHAR(20) NOT NULL,
   id_lokasi    VARCHAR(10) NOT NULL,
-  CONSTRAINT pk_ruang PRIMARY KEY (no_ruang),
-  CONSTRAINT ck_ruang_jenis CHECK (jenis_ruang IN ('Ruang Kelas', 'Laboratorium')),
-  CONSTRAINT fk_ruang_lokasi FOREIGN KEY (id_lokasi)
-    REFERENCES lokasi_kampus (id_lokasi)
-    ON UPDATE CASCADE ON DELETE RESTRICT
+  CONSTRAINT pk_ruang PRIMARY KEY (no_ruang)
 ) ENGINE=InnoDB;
 
 --Tabel pengajuan_ruang(anak/transaksi)
@@ -44,7 +39,4 @@ CREATE TABLE pengajuan_ruang (
   CONSTRAINT fk_pengajuan_ruang FOREIGN KEY (no_ruang)
     REFERENCES ruang (no_ruang)
     ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT fk_pengajuan_admin FOREIGN KEY (id_admin)
-    REFERENCES admin_lokasi (id_admin)
-    ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB;
